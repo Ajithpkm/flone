@@ -14,6 +14,7 @@ import ShopTag from "../../components/product/ShopTag";
 
 const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
   const uniqueCategories = getIndividualCategories(products);
+  // const uniqueCategories = (categories.map(v=> v?.name));
   const uniqueColors = getIndividualColors(products);
   const uniqueSizes = getProductsIndividualSizes(products);
   const uniqueTags = getIndividualTags(products);
@@ -24,10 +25,7 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
       <ShopSearch />
 
       {/* filter by categories */}
-      <ShopCategories
-        categories={uniqueCategories}
-        getSortParams={getSortParams}
-      />
+      <ShopCategories categories={uniqueCategories} getSortParams={getSortParams} />
 
       {/* filter by color */}
       <ShopColor colors={uniqueColors} getSortParams={getSortParams} />

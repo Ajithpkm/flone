@@ -45,7 +45,7 @@ const ShopGridStandard = ({ products }) => {
         sortedProducts = filterSortedProducts;
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (
         <Fragment>
@@ -66,7 +66,7 @@ const ShopGridStandard = ({ products }) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30" />
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
@@ -99,12 +99,14 @@ const ShopGridStandard = ({ products }) => {
 }
 
 ShopGridStandard.propTypes = {
-  products: PropTypes.array
+    products: PropTypes.array,
+    categories: PropTypes.array
 }
 
 const mapStateToProps = state => {
-    return{
-        products: state.productData.products
+    return {
+        products: state.signUp.getProducts,
+        categories: state.signUp.getCategories
     }
 }
 
