@@ -10,7 +10,10 @@ import * as Constants from '../../constants/actions/SignUp';
 const INITIAL_STATE = {
     saveRegister: '',
     loginDetails: {},
-    phoneCodeDetails: {}
+    phoneCodeDetails: {},
+    products: {},
+    getProducts: [],
+    getCategories: []
 };
 
 /**
@@ -31,6 +34,8 @@ const reducer = (state = INITIAL_STATE, action) => {
             return { ...state, loginDetails: action.payload.loginDetails };
         case Constants.PHONE_CODE:
             return { ...state, phoneCodeDetails: action.payload.phoneCodeDetails };
+        case Constants.GET_PRODUCTS:
+            return { ...state, products: action.payload.getProducts.products, getCategories: action.payload.getProducts, getProducts: action.payload.getProducts.products, getCategories: action.payload.getProducts.categories };
         default:
             return state;
     }

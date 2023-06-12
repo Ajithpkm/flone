@@ -21,7 +21,7 @@ const ShopCategories = ({ categories, getSortParams }) => {
                 </button>
               </div>
             </li>
-            {categories.map((category, key) => {
+            {categories && categories?.length > 0 && categories?.map((category, key) => {
               return (
                 <li key={key}>
                   <div className="sidebar-widget-list-left">

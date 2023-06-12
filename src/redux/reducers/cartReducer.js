@@ -13,7 +13,6 @@ const cartReducer = (state = initState, action) => {
     product = action.payload;
 
   if (action.type === ADD_TO_CART) {
-    console.log(action.payload)
     // for non variant products
     if (product.variation === undefined) {
       const cartItem = cartItems.filter(item => item.id === product.id)[0];

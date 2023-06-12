@@ -28,6 +28,15 @@ export const SignUpApi = {
         } catch (error) {
             return [false, error.response.data.message];
         }
+    },
+
+    async getProductsDetails() {
+        try {
+            const response = await axios.get(API.GET_PRODUCTS);
+            return [true, response?.data];
+        } catch (error) {
+            return [false, error.response.data.message];
+        }
     }
 
 }

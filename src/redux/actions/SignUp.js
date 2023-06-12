@@ -1,5 +1,5 @@
 import * as Constants from '../../constants/actions/SignUp';
-import {SignUpApi} from './SignUpApi';
+import { SignUpApi } from './SignUpApi';
 
 export const saveRegister = (payload) => {
     return async dispatch => {
@@ -30,3 +30,14 @@ export const getPhoneCodeDetails = (payload) => {
         })
     }
 }
+
+export const getProductsDetails = (payload) => {
+    return async dispatch => {
+        const [success, getProducts] = await SignUpApi.getProductsDetails(payload);
+        return dispatch({
+            type: Constants.GET_PRODUCTS,
+            payload: { success, getProducts }
+        })
+    }
+}
+

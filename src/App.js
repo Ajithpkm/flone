@@ -7,6 +7,7 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import { fetchProducts } from "./redux/actions/productActions";
+import { getProductsDetails } from "./redux/actions/SignUp";
 import products from "./data/products.json";
 
 // home pages
@@ -123,6 +124,7 @@ const App = (props) => {
       })
     );
     props.dispatch(fetchProducts(products));
+    props.dispatch(getProductsDetails());
   });
 
   return (

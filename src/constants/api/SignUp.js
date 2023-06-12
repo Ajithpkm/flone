@@ -6,3 +6,5 @@ export const USER_LOGIN = Constants.API + '/login';
 
 export const PHONE_CODE = Constants.API + '/phonecode';
 
+export const GET_PRODUCTS = Constants.API + '/getproducts';
+

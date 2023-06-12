@@ -117,8 +117,7 @@ const getIndividualItemArray = array => {
 // get individual categories
 export const getIndividualCategories = products => {
   let productCategories = [];
-  products &&
-    products.map(product => {
+  products && products.map(product => {
       return (
         product.category &&
         product.category.map(single => {
