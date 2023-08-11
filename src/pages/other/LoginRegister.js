@@ -15,27 +15,33 @@ const LoginRegister = () => {
   const pathname = window.location.pathname;
   const dispatch = useDispatch();
   const saveRegisterResponse = useSelector((state) => state.signUp?.saveRegister);
-  const loginDetails = useSelector((state) => state.signUp?.loginDetails);
   const phoneCodeDetails = useSelector((state) => state.signUp?.phoneCodeDetails);
   const [register, setRegister] = useState({ first_name: '', last_name: '', password: '', email: '', phonecode: "", phone: null });
   const [login, setLogin] = useState({ password: '', email: '' });
-  const [screen, setScreen] = useState('login');
+  const [screen, setScreen] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (saveRegisterResponse) setScreen('login');
   }, [saveRegisterResponse]);
 
+  
+  let localStorageScreen = localStorage.getItem('screen');
+
+  useEffect(() => {
+  if(localStorageScreen.length > 0) setScreen(localStorageScreen);
+  else setScreen('login');
+  },[localStorageScreen]);
+
   useEffect(() => {
     if (screen) dispatch(getPhoneCodeDetails());
   }, [screen]);
 
   useEffect(() => {
-    if (loginDetails) {
-      localStorage.setItem('currentLoggedInUser', JSON.stringify({ id: loginDetails.user?.id, First_Name: loginDetails.user?.first_name, token: loginDetails?.authorisation?.token }));
-      navigate('/shop-grid-standard');
-    } 
-  }, [loginDetails]);
+    if (!localStorage.getItem('currentLoggedInUser')) {
+      navigate('/login-register');
+    }
+}, []);
 
   const registerHandleChange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
@@ -58,13 +64,18 @@ const LoginRegister = () => {
     dispatch(saveRegister(payload));
   }
 
-  const loginFormSubmitter = (e) => {
+  const loginFormSubmitter = async(e) => {
     e.preventDefault();
     const payload = {
       "email": login.email,
       "password": login.password
     };
-    dispatch(userLogin(payload));
+    let loginDetails = await dispatch(userLogin(payload));
+    if(loginDetails?.payload?.loginDetails?.status == "success") {
+      loginDetails = loginDetails.payload.loginDetails;
+      localStorage.setItem('currentLoggedInUser', JSON.stringify({ id: loginDetails.user?.id, First_Name: loginDetails.user?.first_name, token: loginDetails?.authorisation?.token }));
+      navigate('/shop-grid-standard');
+    }
   }
 
   const handleSelect = (e) => {

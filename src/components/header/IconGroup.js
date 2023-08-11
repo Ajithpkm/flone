@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
+import { useNavigate } from "react-router-dom";
 
 const IconGroup = ({
   currency,
@@ -23,6 +24,16 @@ const IconGroup = ({
     );
     offcanvasMobileMenu.classList.add("active");
   };
+  const navigate = useNavigate();
+
+  const logout = () =>{
+    localStorage.removeItem('currentLoggedInUser');
+    if (!localStorage.getItem('currentLoggedInUser')) navigate('/login-register');
+  }
+
+  const setScreen = (e) => {
+    localStorage.setItem('screen',(e));
+  }
 
   return (
     <div
@@ -51,16 +62,21 @@ const IconGroup = ({
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+              <Link to={process.env.PUBLIC_URL + "/login-register"} onClick={()=>setScreen('login')}>Login</Link>
             </li>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
+              <Link to={process.env.PUBLIC_URL + "/login-register"} onClick={()=>setScreen('register')}>
                 Register
               </Link>
             </li>
             <li>
               <Link to={process.env.PUBLIC_URL + "/my-account"}>
                 my account
+              </Link>
+            </li>
+            <li>
+              <Link onClick={logout()}>
+                Logout
               </Link>
             </li>
           </ul>
