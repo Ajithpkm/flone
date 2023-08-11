@@ -9,6 +9,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { saveRegister, userLogin, getPhoneCodeDetails } from "../../redux/actions/SignUp";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {
   const pathname = window.location.pathname;
@@ -19,7 +20,7 @@ const LoginRegister = () => {
   const [register, setRegister] = useState({ first_name: '', last_name: '', password: '', email: '', phonecode: "", phone: null });
   const [login, setLogin] = useState({ password: '', email: '' });
   const [screen, setScreen] = useState('login');
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (saveRegisterResponse) setScreen('login');
@@ -30,7 +31,10 @@ const LoginRegister = () => {
   }, [screen]);
 
   useEffect(() => {
-    if (loginDetails) localStorage.setItem('currentLoggedInUser', JSON.stringify({ id: loginDetails.user?.id, First_Name: loginDetails.user?.first_name, token: loginDetails?.authorisation?.token }))
+    if (loginDetails) {
+      localStorage.setItem('currentLoggedInUser', JSON.stringify({ id: loginDetails.user?.id, First_Name: loginDetails.user?.first_name, token: loginDetails?.authorisation?.token }));
+      navigate('/shop-grid-standard');
+    } 
   }, [loginDetails]);
 
   const registerHandleChange = (e) => {
